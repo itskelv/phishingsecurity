@@ -18,9 +18,7 @@ def compute_metrics(pred):
 def training():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(device)
-    model.to(device)
-    dummy_input = tokenizer("http://test-phish-link.com", return_tensors="pt").to(device)
-
+    
     train_df = pd.read_csv(os.path.join(params['final_dir'], 'train.csv'))
     test_df = pd.read_csv(os.path.join(params['final_dir'], 'test.csv'))
 
@@ -47,11 +45,14 @@ def training():
         seq_classif_dropout=params['dropout']
     )
 
-    model = BertForSequenceClassification.from_pretrained(
-        'bert-base-uncased', 
-        num_labels=2,
-        seq_classif_dropout=params['dropout']
-    )
+    # model = BertForSequenceClassification.from_pretrained(
+    #     'bert-base-uncased', 
+    #     num_labels=2,
+    #     hidden_dropout_prob=params['dropout']
+    # )
+    
+    model.to(device)
+    dummy_input = tokenizer("http://test-phish-link.com", return_tensors="pt").to(device)
 
     training_args = TrainingArguments(
         output_dir='./results',
@@ -85,7 +86,6 @@ def training():
     end = time.time()
     
     print(f"\nEfficiency Metrics:\nInference Latency: {(end-start)*1000:.2f} ms")
-    print(f"Model Size: ~260MB (66M Parameters)")
 
 if __name__ == "__main__":
     training()
