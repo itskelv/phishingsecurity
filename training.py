@@ -22,8 +22,8 @@ def training():
     train_df = pd.read_csv(os.path.join(params['final_dir'], 'train.csv'))
     test_df = pd.read_csv(os.path.join(params['final_dir'], 'test.csv'))
 
-    tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
-    # tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    # tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
     def tokenize_data(df):
         encodings = tokenizer(
@@ -39,17 +39,17 @@ def training():
     train_dataset = tokenize_data(train_df)
     test_dataset = tokenize_data(test_df)
 
-    model = DistilBertForSequenceClassification.from_pretrained(
-        'distilbert-base-uncased', 
-        num_labels=2,
-        seq_classif_dropout=params['dropout']
-    )
-
-    # model = BertForSequenceClassification.from_pretrained(
-    #     'bert-base-uncased', 
+    # model = DistilBertForSequenceClassification.from_pretrained(
+    #     'distilbert-base-uncased', 
     #     num_labels=2,
-    #     hidden_dropout_prob=params['dropout']
+    #     seq_classif_dropout=params['dropout']
     # )
+
+    model = BertForSequenceClassification.from_pretrained(
+        'bert-base-uncased', 
+        num_labels=2,
+        hidden_dropout_prob=params['dropout']
+    )
     
     model.to(device)
     dummy_input = tokenizer("http://test-phish-link.com", return_tensors="pt").to(device)
