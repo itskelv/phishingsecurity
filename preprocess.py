@@ -5,7 +5,9 @@ from sklearn.model_selection import train_test_split
 from parameters import params
 
 def preprocessing():
+    print("start preprocessing")
     if not os.path.exists(params['final_dir']):
+        print("create final directory")
         os.makedirs(params['final_dir'])
 
     print(f"Loading dataset from {params['root_dir']}...")
