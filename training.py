@@ -59,7 +59,7 @@ def training():
         num_train_epochs=params['epochs'],
         per_device_train_batch_size=params['batch_size'],
         learning_rate=params['learning_rate'],
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         weight_decay=0.01,
