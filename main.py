@@ -5,4 +5,4 @@ import training
 
 def main():
     preprocess.preprocessing()
-    training.training()
+    # training.training()

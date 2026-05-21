@@ -8,6 +8,6 @@
 #SBATCH --gres=gpu:4
 #SBATCH --output=DistilBERTforphishing.out
 #SBATCH --error=DistilBERTforphishing.err
-module load cuda/12.1
+module load cuda/12.4
 conda activate phishenv
 python main.py
