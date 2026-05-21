@@ -6,3 +6,6 @@ import training
 def main():
     preprocess.preprocessing()
     training.training()
+
+if __name__ == "__main__":
+    main()
