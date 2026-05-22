@@ -80,10 +80,18 @@ def training():
     results = trainer.evaluate()
     print(f"\nPerformance Metrics:\nAccuracy: {results['eval_accuracy']:.4f}\nF1: {results['eval_f1']:.4f}")
     
-    start = time.time()
     with torch.no_grad():
+        # Warm up
+        for _ in range(10):
+            model(**dummy_input)
+            
+        torch.cuda.synchronize()
+        start = time.time()
+        
         model(**dummy_input)
-    end = time.time()
+        
+        torch.cuda.synchronize()
+        end = time.time()
     
     print(f"\nEfficiency Metrics:\nInference Latency: {(end-start)*1000:.2f} ms")
 
