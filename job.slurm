@@ -6,8 +6,8 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:4
-#SBATCH --output=BERTforphishing.out
-#SBATCH --error=BERTforphishing.err
+#SBATCH --output=DistilBERTforphishing.out
+#SBATCH --error=DistilBERTforphishing.err
 
 module load cuda/12.4
 conda activate phishenv
